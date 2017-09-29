@@ -1,0 +1,364 @@
+<link href="/prism.css" rel="stylesheet"/>
+<link href="/jquery.json-viewer.css" rel="stylesheet"/>
+<script src="/prism-json.js"></script>
+<script src="/jquery.json-viewer.js"></script>
+
+<!--<script src="/rainbow.min.js"></script>-->
+<style>
+  #input h4 {
+    padding: 10px;
+  }
+
+  #textarea {
+    max-height: 400px;
+    overflow: auto;
+    padding: 0;
+  }
+
+  .col-left {
+    margin-left: 5.5% !important;
+  }
+
+  .col-right {
+    margin-left: 0% !important;
+  }
+
+  .col-cent {
+    width: unset !important;
+  }
+
+  .row {
+    margin: 0;
+  }
+
+
+
+  .nav-wrapper li a:hover {
+    /*-webkit-box-shadow: 0 16px 24px 2px rgba(0,0,0,0.14), 0 6px 30px 5px rgba(0,0,0,0.12), 0 8px 10px -5px rgba(0,0,0,0.3);*/
+    /*box-shadow: 0 16px 24px 2px rgba(0,0,0,0.14), 0 6px 30px 5px rgba(0,0,0,0.12), 0 8px 10px -5px rgba(0,0,0,0.3);*/
+
+    -webkit-box-shadow: 0 6px 10px 0 rgba(0, 0, 0, 0.14), 0 1px 18px 0 rgba(0, 0, 0, 0.12), 0 3px 5px -1px rgba(0, 0, 0, 0.3);
+    box-shadow: 0 6px 10px 0 rgba(0, 0, 0, 0.14), 0 1px 18px 0 rgba(0, 0, 0, 0.12), 0 3px 5px -1px rgba(0, 0, 0, 0.3);
+  }
+
+  /*.btn-examples{*/
+  /*-webkit-box-shadow: 0 16px 24px 2px rgba(0,0,0,0.14), 0 6px 30px 5px rgba(0,0,0,0.12), 0 8px 10px -5px rgba(0,0,0,0.3);*/
+  /*box-shadow: 0 16px 24px 2px rgba(0,0,0,0.14), 0 6px 30px 5px rgba(0,0,0,0.12), 0 8px 10px -5px rgba(0,0,0,0.3);*/
+
+  /*}*/
+  #textarea:focus {
+    border-bottom: 1px solid #ffe0b2;
+    box-shadow: 0 1px 0 0 #ffe0b2;
+  }
+
+  input[type=text]:focus:not([readonly]){
+    border-bottom: 1px solid #ffe0b2 !important;
+    box-shadow: 0 1px 0 0 #ffe0b2 !important;
+  }
+
+  .select-dropdown li > span {
+    color: #0976b4;
+  }
+
+  .select-dropdown li.disabled > span {
+    color: #0cf;
+  }
+
+  .select-dropdown {
+    background: #111;
+  }
+
+  .modal {
+    width: 75% !important;
+    height: 75% !important;
+  }
+
+  /* increase the height and width as you desire */
+
+</style>
+<div class="container grey darken-4 amber-text text-ligthen-3 z-depth-2">
+  <br>
+  <div class="row">
+    <form id="input" class=" s12">
+      <h4 class="center-align flow-text light-blue darken-3 z-depth-2 orange-text text-lighten-4">
+        Parse a JSON document
+      </h4>
+
+
+      <div class="row">
+        <div class="input-field col s5 col-left">
+          <input type="text" id="url" name="url" value="" class="flow-text">
+          <label for="url" class="light-blue-text text-lighten-4" style="right:.75rem;float: right !important;left: unset">API
+            url</label>
+
+
+        </div>
+
+        <div class="input-field col s2  col-cent">
+
+          <h5 class="center-align flow-text amber-text bold ">||</h5>
+        </div>
+        <div class="input-field col s5 col-right">
+          <textarea rows="1" id="textarea" class="materialize-textarea flow-text">
+</textarea>
+          <label class="light-blue-text text-lighten-4" for="textarea">JSON string</label>
+
+
+        </div>
+      </div>
+
+      <br>
+
+
+      <div class="row flow-text valign-wrapper ">
+        <div  href="#modal1" class=" modal-trigger col s5 col-left  center-align btn  btn-large blue-grey darken-4">
+          <a class="amber-text">Samples</a>
+          <!--<a class="waves-effect waves-light btn modal-trigger" href="#modal1">Modal</a>-->
+
+        </div>
+        <div class="col col-cent">
+          <h5 class="center-align flow-text light-blue-text bold ">||</h5>
+
+        </div>
+        <div class="col s5 col-right btn-submit center-align  btn  btn-large blue-grey darken-4">
+
+
+          <a href="#" class="  amber-text" type="submit" name="action">Submit</a>
+
+        </div>
+
+
+      </div>
+      <br>
+
+
+    </form>
+  </div>
+
+  <div class="row">
+
+    <div id="select-container" class=" col s12">
+
+
+    </div>
+  </div>
+  <pre>Showing: <code id="command" class="language-ruby"></code></pre>
+
+  <div class="row">
+    <!--<div id="data" class=" col s8 offset-s2 light-blue lighten-2" style="min-height: 0 ;border-radius: 5px;overflow: auto;max-height: 100% ">-->
+    <!--</div>-->
+
+    <pre id="data" class="light-blue-text col s10 offset-s1"></pre>
+
+  </div>
+</div>
+
+
+
+
+
+
+
+<!-- Modal Trigger -->
+
+<!-- Modal Structure -->
+<div id="modal1" class="modal grey  darken-4 light-blue-text text-lighten-3">
+  <div class="modal-content ">
+    <h4 class="amber-text text-lighten-3">Samples</h4>
+
+    URL for currency exchange API  <a id="url-try" href="#"><span class="new badge light-blue darken-2 black-text" data-badge-caption="Try it"></span></a>
+
+    <pre><code class="language-json ">http://api.fixer.io/latest</code></pre>
+    Sample JSON<a id="text-try" href="#"><span class="new badge amber darken-2" data-badge-caption="Try it"></span></a>
+
+    <pre><code class="language-json "> {
+    "glossary": {
+        "title": "example glossary",
+		"GlossDiv": {
+            "title": "S",
+			"GlossList": {
+                "GlossEntry": {
+                    "ID": "SGML",
+					"SortAs": "SGML",
+					"GlossTerm": "Standard Generalized Markup Language",
+					"Acronym": "SGML",
+					"Abbrev": "ISO 8879:1986",
+					"GlossDef": {
+                        "para": "A meta-markup language, used to create markup languages such as DocBook.",
+						"GlossSeeAlso": ["GML", "XML"]
+                    },
+					"GlossSee": "markup"
+                }
+            }
+        }
+    }
+}</code></pre>
+  </div>
+  <div class="modal-footer grey darken-4">
+    <a href="#!" class="modal-action modal-close waves-effect waves-green btn-flat"></a>
+  </div>
+</div>
+
+
+
+
+
+
+<script>
+   $("#url-try").click(function () {
+       $('#modal1').modal('close');
+       $('#textarea').val("")
+
+       $('#url').val("http://api.fixer.io/latest")
+       $('#url').focus();
+
+       $(".btn-submit").click()
+   })
+   $("#text-try").click(function () {
+       $('#modal1').modal('close');
+       $('#url').val("")
+       $('#textarea').focus();
+
+       $('#textarea').val(" {\n" +
+           "       \"glossary\": {\n" +
+           "       \"title\": \"example glossary\",\n" +
+           "           \"GlossDiv\": {\n" +
+           "           \"title\": \"S\",\n" +
+           "               \"GlossList\": {\n" +
+           "               \"GlossEntry\": {\n" +
+           "                   \"ID\": \"SGML\",\n" +
+           "                       \"SortAs\": \"SGML\",\n" +
+           "                       \"GlossTerm\": \"Standard Generalized Markup Language\",\n" +
+           "                       \"Acronym\": \"SGML\",\n" +
+           "                       \"Abbrev\": \"ISO 8879:1986\",\n" +
+           "                       \"GlossDef\": {\n" +
+           "                       \"para\": \"A meta-markup language, used to create markup languages such as DocBook.\",\n" +
+           "                           \"GlossSeeAlso\": [\"GML\", \"XML\"]\n" +
+           "                   },\n" +
+           "                   \"GlossSee\": \"markup\"\n" +
+           "               }\n" +
+           "           }\n" +
+           "       }\n" +
+           "   }\n" +
+           "   }")
+       $('#textarea').trigger('autoresize');
+
+       $(".btn-submit").click()
+   })
+
+
+
+
+
+    $(document).ready(function () {
+        // the "href" attribute of the modal trigger must specify the modal ID that wants to be triggered
+        $('.modal').modal();
+
+        $('#url').change(function (a) {
+            $('#textarea').val('').removeAttr("style")
+            $("#data").html()
+        });
+        $('#textarea').change(function (a) {
+            $('#url').val('')
+            $("#data").html()
+
+        });
+        function command(data){
+            $("#command").html('JsonObject')
+
+            $.each(data.select, function (key, val) {
+                console.log(typeof val)
+                console.log(val.search(/\d+/))
+                if(val.search(/\d+/)===0){
+                    $("#command").append("["+val+"]")
+                }else{
+                    $("#command").append("[\""+val+"\"]")
+                }
+
+            })
+        }
+
+        function data_select(data) {
+
+            command(data)
+
+            a = [];
+            $.each(data.keys, function (key, val) {
+                a.push("<option>" + val + "</option>")
+            });
+            $('#select-container').append("<div class=\"input-field col s4\"><select ><option disabled selected>Choose child element</option>" + a.join('') + "</select></div>");
+            $('select').material_select();
+
+        }
+
+
+    $(".btn-submit").click(function (e) {
+        e.preventDefault()
+        var url = $("#url").val()
+        var textarea = $("#textarea").val()
+        var type = ''
+
+        if ((textarea === '')&&(url === '')){
+            Materialize.toast("Please fill a source before submitting", 4000, "red") // 4000 is the duration of the toast
+return false
+        }else if (url === '') {
+            type = "textarea"
+            string = textarea
+        } else{
+            type = "url"
+            string = url
+
+        }
+        $.post('/json/parse', {string: string, type: type}, function (data) {
+            $("#select-container").empty()
+            if (data.error) {
+                Materialize.toast(data.error, 4000, "red") // 4000 is the duration of the toast
+            } else {
+                data_select(data)
+                $("#data").fadeOut(0)
+                $('#data').jsonViewer($.parseJSON(data.array));
+                $("#data").fadeIn(1000)
+            }
+        })
+
+
+    });
+
+
+
+    $(document).on('change', 'select', function () {
+        var select = $(this)
+//                alert("Works well");
+        var url = $("#url").val()
+        var textarea = $("#textarea").val()
+        var type = ''
+        if (url === '') {
+            type = "textarea"
+            string = textarea
+        } else {
+            type = "url"
+            string = url
+
+        }
+
+        select.parent().parent().nextAll().remove()
+
+        var arr = []
+        $("select").each(function () {
+            arr.push($(this).val())
+        });
+
+        $.post('/json/parse', {string: string, type: type, array: arr}, function (data) {
+            $('#data').jsonViewer($.parseJSON(data.array));
+            command(data)
+            if (data.keys !== "") {
+                data_select(data)
+
+            }
+
+        }, 'json');
+
+    });
+    });
+
+</script>

@@ -1,0 +1,246 @@
+<link href="/prism.css" rel="stylesheet"/>
+<script src="/prism.js"></script>
+<script src="/jquery.autosize.input.min.js" type="application/javascript"></script>
+
+<!--<script src="/url.js"></script>-->
+
+<script src="/js/nokogiri/script.js"></script>
+
+
+
+<!--<script src="/jquery.json-viewer.js"></script>-->
+
+<!--<script src="/rainbow.min.js"></script>-->
+<style>
+
+</style>
+<link href="/style.css" rel="stylesheet"/>
+
+<div class="container grey darken-4 white-text z-depth-2">
+  <br>
+  <div class="row">
+    <form id="input" class=" s12">
+      <h4 class="center-align flow-text light-blue darken-3 z-depth-2 orange-text text-lighten-4">
+        Interactive Nokogiri       </h4>
+
+
+      <div class="row">
+        <div class="input-field col s5 col-left">
+          <input type="text" id="url" name="url" value="" class="flow-text">
+          <label for="url" class="light-blue-text text-lighten-4" style="right:.75rem;float: right !important;left: unset">Web address</label>
+
+
+        </div>
+
+        <div class="input-field col s2  col-cent">
+
+          <h5 class="center-align flow-text amber-text bold ">||</h5>
+        </div>
+        <div class="input-field col s5 col-right">
+          <textarea rows="1" id="textarea" class="materialize-textarea flow-text">
+</textarea>
+          <label class="light-blue-text text-lighten-4" for="textarea">HTML code</label>
+
+
+        </div>
+      </div>
+
+      <br>
+
+
+      <div class="row flow-text valign-wrapper ">
+        <div href="#modal-example"  class="  modal-trigger col s5 col-left  center-align btn  btn-large blue-grey darken-4 waves-effect waves-light">
+          <a  class="amber-text">Samples</a>
+
+        </div>
+        <div class="col col-cent">
+          <h5 class="center-align flow-text light-blue-text bold ">||</h5>
+
+        </div>
+        <div class="col s5 col-right btn-submit center-align  btn  btn-large blue-grey darken-4 waves-effect waves-light ">
+
+          <a  href="#" class="  amber-text" type="submit" name="action">Submit</a>
+
+        </div>
+
+
+      </div>
+      <br>
+
+
+    </form>
+  </div>
+
+
+
+  <div class="row">
+    <!--<div id="data" class=" col s8 offset-s2 light-blue lighten-2" style="min-height: 0 ;border-radius: 5px;overflow: auto;max-height: 100% ">-->
+    <!--</div>-->
+
+    <pre id="data" class="light-blue-text col s10 offset-s1"></pre>
+
+  </div>
+</div>
+
+
+
+
+
+
+<div class="container grey darken-4 white-text z-depth-2"  id="container2">
+
+
+
+
+
+
+  <form id="methods" >
+
+
+    <!--<div class="chip">-->
+    <!--Tag-->
+    <!--<input class="hidden-input">-->
+    <!--<i class="close material-icons">close</i>-->
+    <!--</div>-->
+
+    <!--TABS-->
+
+        <ul class="tabs tabs-fixed-width  light-blue darken-3 ">
+          <%@doc.each_with_index {|e, i| %>
+          <li class='tab'><a class=' amber-text text-darken-2' href='#<%=e[0]%>'><%=e[0].capitalize%></a></li>
+
+
+          <% } %>
+
+        </ul>
+
+
+    <div  class="row center-align">
+      <%= @nokogiri %>
+
+    </div>
+
+
+      <div class="input-field col s12 ">
+        <ul id="drag" class="connectedSortable ">
+
+
+          <li class="chip unsortable white">base</li>
+
+
+
+
+        </ul>
+
+      </div>
+    <div id="message"></div>
+      <div class="input-field col s4">
+        <br>
+        <a class="btn waves-effect waves-light orange" name="action" id="check">Check
+        </a>
+      </div>
+  </form>
+</div>
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+<!-- Modal Trigger -->
+
+<!-- Modal Structure -->
+<div id="modal-example" class="modal grey  darken-4 light-blue-text text-lighten-3">
+  <div class="modal-content ">
+    <h4 class="amber-text text-lighten-3">Samples</h4>
+
+    URL for currency exchange API  <a id="url-try" href="#"><span class="new badge light-blue darken-2 black-text" data-badge-caption="Try it"></span></a>
+
+    <pre><code class="language-json ">http://mangafox.com</code></pre>
+    Sample JSON<a id="text-try" href="#"><span class="new badge amber darken-2" data-badge-caption="Try it"></span></a>
+
+    <pre><code class="language-json "> {
+    "glossary": {
+        "title": "example glossary",
+		"GlossDiv": {
+            "title": "S",
+			"GlossList": {
+                "GlossEntry": {
+                    "ID": "SGML",
+					"SortAs": "SGML",
+					"GlossTerm": "Standard Generalized Markup Language",
+					"Acronym": "SGML",
+					"Abbrev": "ISO 8879:1986",
+					"GlossDef": {
+                        "para": "A meta-markup language, used to create markup languages such as DocBook.",
+						"GlossSeeAlso": ["GML", "XML"]
+                    },
+					"GlossSee": "markup"
+                }
+            }
+        }
+    }
+}</code></pre>
+  </div>
+  <div class="modal-footer grey darken-4">
+    <a href="#!" class="modal-action modal-close waves-effect waves-green btn-flat"></a>
+  </div>
+</div>
+</div>
+
+<div class="row">
+  <div class="col s12 ">
+
+  <pre id="code-container" ><code id="code" class=" language-html"></code></pre>
+<div id="modal-el" class="modal grey darken-4 ">
+  <div class="modal-content " >
+    <div class="row " >
+      <div id="elements-ids">
+
+      </div>
+    </div>
+      <div class="row " >
+
+      <div id="elements-classes">
+
+      </div>
+      </div>
+    <div class="row " >
+
+
+      <div id="elements-tags">
+
+      </div>
+    </div>
+  </div>
+  <div class="modal-footer blue-grey darken-4 black-text">
+    <a href="#!" class="modal-action modal-close waves-effect waves-green btn-flat">Cancel</a>
+  </div>
+</div>
+</div>
+</div>
+

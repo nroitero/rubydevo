@@ -1,0 +1,558 @@
+<html>
+<head>
+
+  <!--<link rel="stylesheet" href="/assets/css/materialize-stepper.min.css">-->
+  <link href="/assets/css/obsidian.css" rel="stylesheet"/>
+
+
+  <script src="https://ajax.aspnetcdn.com/ajax/jquery.validate/1.15.0/jquery.validate.min.js"></script>
+
+  <!--<script src="/assets/js/materialize-stepper.min.js"></script>-->
+  <script src="/rainbow.min.js"></script>
+
+  <meta name="viewport" content="width=device-width, initial-scale=1.0"/>
+</head>
+<style>
+body,div{
+  margin:0;
+}
+  .hidden-input {
+
+    width: 100px !important ;
+    /*color: #c90 !important;*/
+    border: none !important;
+height: 32px !important;
+    background-color: transparent !important;
+    text-align: center;
+  }
+  .chip{
+    background-color: #333 !important;
+    color: #c90;
+    border-radius: 0 !important;
+  }
+#methods-container ,#show-error{
+  display: none;
+}
+#check-url,.footer{
+  display: none;
+}
+.btn-sm {
+  padding: 0 1rem;
+  line-height: 2rem;
+  height: 2rem;
+}
+.modal.bottom-sheet{
+  max-height: 70%;
+}
+.helpers:hover{
+  font-weight: bold;
+}
+
+#div_id,#div_classes{
+  padding: 1rem;
+  border-radius: 5px;
+}
+    #error_message,#code_error{
+      font-weight: bold;
+    }
+    .hidden-select{
+      border:none !important;
+      width:80px;
+    }
+
+::-webkit-input-placeholder { /* Chrome */
+  color: #00bcd4;
+}
+:-ms-input-placeholder { /* IE 10+ */
+  color: #00bcd4;
+}
+::-moz-placeholder { /* Firefox 19+ */
+  color: #00bcd4;
+  opacity: 1;
+}
+:-moz-placeholder { /* Firefox 4 - 18 */
+  color: #00bcd4;
+  opacity: 1;
+}
+</style>
+
+
+<div id="index-banner" class="parallax-container">
+  <div class="section no-pad-bot">
+    <div class="container  ">
+      <br><br>
+      <h1 class="header center white-text">Rukogiri</h1>
+      <h3 class="header center orange-text">An interactive Nokogiri parser</h3>
+
+      <div class="row center">
+        <p class="header  flow-text white-text ">
+          inspired by <a target="_blank" href="http://rubular.com/">Rubular</a> and <a target="_blank" href="https://scratch.mit.edu"> Scratch</a>
+        </p>
+      </div>
+      <!--<div class="row center">-->
+        <!--<a href="#main" id="download-button" class="btn-large waves-effect waves-light teal lighten-1">Get Started</a>-->
+      <!--</div>-->
+      <br><br>
+
+    </div>
+  </div>
+  <div class="parallax">
+    <img style="opacity:.3" src="https://ak8.picdn.net/shutterstock/videos/22262236/thumb/1.jpg?i10c=img.resize(height:160)" alt="Unsplashed background img 1" style="display: block; transform: translate3d(-50%, 232px, 0px);">
+  </div>
+</div>
+
+<!-- main content -->
+<div class="container  amber darken-2  black-text center-align">
+  <div class="section">
+
+    <div class="row" >
+      <div id="url-container">
+      <h2>Step 1</h2>
+      <h5>Fill the address containing the data to extract</h5>
+<br>
+      <form id="url-form" class="flow-text">
+        <div class="row">
+
+          <div class="input-field col s7 offset-s1">
+
+            <i class="material-icons prefix">link</i>
+            <input name="url" id="url" type="text" class="validate" value="">
+            <label for="url">URL</label>
+          </div>
+          <div class="input-field col s4">
+            <button class="btn waves-effect waves-light blue-grey" type="submit" name="action">Submit
+            </button>
+          </div>
+        </div>
+
+      </form>
+    </div>
+    <span id="url-answer" class="flow-text red-text"></span>
+<br>
+    <div id="check-url">
+      URL:
+      <span id="url-display" class="  white-text"></span>
+<br>
+        Title:
+      <span id="url-title" class="  white-text"></span>
+      <br>
+
+      <a class="btn btn-sm waves-effect waves-light" id="url-edit">edit</a>
+
+
+    </div>
+
+  </div></div>
+</div>
+
+
+<div id="methods-container">
+
+
+  <div class="container cyan darken-3 white-text center-align">    <br>
+
+    <h2>Step 2</h2>
+
+    <h5>Drag and drop methods</h5>
+
+    <div class="row">
+
+      <form id="url-form" class="flow-text">
+        <div class="row">
+
+          <div class="input-field col s12 ">
+
+            <!--<div class="chip">-->
+              <!--Tag-->
+              <!--<input class="hidden-input">-->
+              <!--<i class="close material-icons">close</i>-->
+            <!--</div>-->
+
+            <ul id="method" class="connectedSortable">
+
+              <%= @li %>
+
+            </ul>
+
+          </div>
+          <div class="container"><hr></div>
+
+
+          <div class="input-field col s8 ">
+            <ul id="drag" class="connectedSortable ">
+
+
+              <li class="chip unsortable white">base</li>
+
+
+              <li class='chip' data-type='1' data-method='css'>
+              .css("<input class='hidden-input ' placeholder='value' value="" >")
+                <i class="close material-icons">close</i>
+
+              </li>
+
+
+            </ul>
+
+          </div>
+          <div class="input-field col s4">
+            <h3>Step 3</h3>
+
+            <a class="btn waves-effect waves-light orange" name="action" id="check">Check
+            </a>
+          </div>
+        </div>
+
+      </form>
+    </div>
+  </div>
+</div>
+
+
+
+
+
+<div id="" class="parallax-container footer">
+  <div class="section no-pad-bot">
+    <div class="container">
+      <div class="row">
+        <div class="col l5 s12 amber darken-2 grey-text text-darken-4" id="div_id">
+          <h5>Available Ids</h5>
+          <ul class="ids">
+
+          </ul>
+        </div>
+        <div class="col l5 offset-l1 s12 cyan  darken-2 grey-text text-darken-4" id="div_classes">
+          <h5>Available Classes</h5>
+          <span class="classes">
+
+        </span>
+
+        </div>
+      </div>
+  </div>
+  <div class="parallax">
+    <img style="opacity:.7" src="https://ak8.picdn.net/shutterstock/videos/22262236/thumb/1.jpg?i10c=img.resize(height:160)" alt="Unsplashed background img 1" style="display: block; transform: translate3d(-50%, 232px, 0px);">
+  </div>
+  </div>
+</div>
+
+<div id="modal1" class="modal bottom-sheet grey darken-4">
+  <div class="modal-content">
+    <h5 id="code_txt"  class="white-text"></h5>
+    <div id="show-error"><div id="error_message" class="black-text red"></div>
+    <div class="amber darken-2 black-text">Showing instead result for <span id="code_error" class=" text-darken-2"></span></div>
+    </div>
+    <pre id="result" class="col-md-6 white-text">
+    </pre>
+  </div>
+
+</div>
+
+  <div class="footer-copyright">
+    <div class=" white-text">
+     &nbsp; © 2017 Nicolas roitero
+      <a class="blue-text  right" href="#!">link</a>
+    </div>
+  </div>
+
+
+<script src="/init.js"></script>
+
+<script>
+
+
+
+
+    $("#method").sortable({
+        connectWith: ".connectedSortable",
+
+        helper: function (e, li) {
+            this.copyHelper = li.clone().insertAfter(li);
+
+            $(this).data('copied', false);
+
+            return li.clone();
+        },
+        stop: function () {
+
+            var copied = $(this).data('copied');
+
+            if (!copied) {
+                this.copyHelper.remove();
+            }
+
+            this.copyHelper = null;
+        }, beforeStop: function (event, ui) {
+
+            if (ui.item.parent().attr('id') === "method") {
+            }
+        }
+
+    });
+
+    $("#url-form").validate({
+        rules: {
+            url: {
+                required: true,
+                url: true
+            }
+        }
+    });
+
+
+
+
+    $("#url-form").submit(function (data) {
+        url = $(this).find("#url").val()
+        $.ajax({
+            type: 'POST',
+            async: false,
+
+            url: "/check/url",
+            data: {"url": url},
+            dataType: 'json',
+            success: function (data) {
+
+               result = data
+            }
+        });
+        var speed=1000
+        console.log(result)
+
+        if (result.response) {
+            $("#url-answer").html("")
+            $("#check-url").slideDown(speed);
+            $("#methods-container").slideDown(speed);
+            $("#url-container").slideUp(speed)
+            $("#url-display").html(url)
+            $("#url-description").html(result.description)
+            $("#url-title").html(result.title)
+            $("#url-root").html(url,result.url_root)
+            $('html,body').animate({ scrollTop: $('#methods-container').offset().top-400 }, 1000);
+
+            $(".classes").html(result.classes)
+            $(".ids").html(result.ids)
+            $(".footer").slideDown(speed);
+
+        } else {
+
+            $("#url-answer").html(result.error)
+        }
+
+
+$("#url-edit").click(function () {
+    $("#check-url").slideUp(speed);
+    $("#methods-container").slideUp(speed);
+    $("#url-container").slideDown(speed)
+    $(".footer").slideUp(speed);
+
+
+
+$("#drag").html("<li class=\"chip unsortable white\">base</li>\n" +
+    "              <li id=\"css\" class=\"chip\">\n" +
+    "                  .css(\"<input class=\"hidden-input \" placeholder=\"value\" >\")\n" +
+    " <i class=\"close material-icons\">close</i>             </li>")
+
+        })
+//
+//
+//    <form id="url-form" class="flow-text">
+//
+//            </form>
+//            <span id="url-answer" class="flow-text red-text"></span>
+//
+//            <div id="check-url">
+//            URL:
+//    <span id="url-display" class="  white-text"></span>
+//            <br>
+//            <a class="btn btn-sm waves-effect waves-light">edit</a>
+//
+//
+//            </div>
+
+
+
+
+
+        $("#drag").sortable({
+            items: "li:not(.unsortable)",
+            receive: function (e, ui) {
+                ui.sender.data('copied', true);
+                ui.item.append("<i class=\"close material-icons\">close</i>")
+
+//                check($(this))
+            },
+            stop: function () {
+              //  check($(this))
+
+            }
+        });
+
+
+
+
+
+
+
+
+
+
+
+
+    })
+
+
+    $(document).ready(function () {
+        $('.parallax').parallax();
+    });
+
+
+
+
+    function check() {
+        var arr = []
+
+$("#drag .ui-sortable-handle").each(function (index, element) {
+if($(element).find("input").length) {
+    console.log($(element).find("input").val())
+    console.log($(element).data())
+                    arr.push({
+                    index: index,
+                    has_input: true,
+                        method: $(element).data("method"),
+                        type: $(element).data("type"),
+                        input: $(element).find("input").val()
+                })
+}else if($(element).find("select").length) {
+    console.log($(element))
+    arr.push({
+        index: index,
+        has_input: true,
+        method: $(element).data("method"),
+        type: $(element).data("type"),
+        input: $(element).find("option:selected").val()
+    })
+}
+
+
+else{
+    arr.push({
+        index: index,
+        has_input: false,
+        method: $(element).data("method"),
+        type: $(element).data("type")
+    })
+}
+})
+
+//        parent.find("li").each(function (index, element) {
+//            if (index > 0) {
+//                if($(this).find("input").length ){
+//                    var  div=$(this)
+//
+//
+//                arr.push({
+//                    index: index,
+//                    has_input: true,
+//                    command: div.find(".before").text()+div.find("input").val()+div.find(".after").text()
+//                })
+//
+//
+//            }else {
+//                    arr.push({
+//                        index: index,
+//                        has_input: false,
+//                        command: $(this).find(".method").text()
+//                    })
+//                }
+//
+//            }
+//        })
+
+        var url = $("#url-display").text()
+        console.log(url)
+
+//        var div_id = parent[0].id
+        console.log({"url": url, "commands": arr})
+
+        $.ajax({
+            type: 'POST',
+            async: false,
+
+            url: "/check/nokogiri",
+            data: {"url": url, "commands": arr},
+            dataType: 'json',
+            success: function (data) {
+                result = data;
+            }
+        });
+        console.log(result)
+
+        if (!result.error){
+            console.log("no error")
+            $("#show-error").hide()
+
+            $('#code_txt').html(result.text_cmd)
+            $('#result').html("<code data-language=\"html\" id=\"code\"></code>")
+            $('.preloader').remove()
+            $("#code").html(result.code)
+
+            Rainbow.color();
+
+        }else{
+            console.log("error")
+            $("#show-error").show()
+            $("#code_txt").html(result.text_cmd_error)
+            $("#code_error").html(result.text_cmd)
+
+            $("#error_message").html("<code data-language=\"html\" >"+result.message+"</code>")
+
+            $("#result").html("<code data-language=\"html\" id=\"code\"></code>")
+            $('.preloader').remove();
+            $("#code").html(result.code)
+            Rainbow.color();
+
+//            +"<br>showing instead result for: "+result.text_cmd+"<br><br>"+result.code)
+//            <div id="error_message"><span id="code_error" class="red-text text-darken-2"></span></div>
+
+        }
+
+//    <h5 id="code_result"></h5>
+//            <span id="errors"></span>
+//            <pre id="result" class="col-md-6">
+
+
+//        $("#" + div_id + " li").each(function (index, element) {
+//            if (index >= 1) {
+//                $(this).removeClass("btn-danger").addClass("btn-info")
+//            }
+//        })
+//        if (result.message) {
+//            console.log(result)
+//
+//            $("#" + div_id + " li").each(function (index, element) {
+//
+//                if (index >= parseInt(result.id)) {
+//                    $(this).removeClass("btn-info").addClass("btn-danger")
+//                }
+//            })
+//
+//            $("#result").html("Error for : " + result.nokogiri + "<br><br><code id=\"error\"></code>")
+//            $("#error").html(result.message).addClass("text-danger").css({"font-weight":"bold"})
+//            $("#error")
+//        } else {
+//
+//            $("#result").html("Result for : " + result.nokogiri + "<br><br><code data-language=\"html\" id=\"code\"></code>")
+//            $('.preloader').remove()
+//            $("#code").html(result.code)
+//            Rainbow.color();
+//        }
+    }
+
+
+
+</script>
+
+
+</html>

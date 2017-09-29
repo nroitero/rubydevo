@@ -1,0 +1,285 @@
+<html>
+<head>
+
+  <!--<link rel="stylesheet" href="/assets/css/materialize-stepper.min.css">-->
+  <link href="/assets/css/obsidian.css" rel="stylesheet"/>
+  <link href="/style.css" rel="stylesheet"/>
+
+
+  <!--<script src="https://ajax.aspnetcdn.com/ajax/jquery.validate/1.15.0/jquery.validate.min.js"></script>-->
+
+  <!--<script src="/assets/js/materialize-stepper.min.js"></script>-->
+  <script src="/rainbow.min.js"></script>
+  <script src="/jquery.autosize.input.min.js" type="application/javascript"></script>
+  <script src="/functions.js" type="application/javascript"></script>
+  <script src="/sortable.js" type="application/javascript"></script>
+  <script src="/init.js"></script>
+  <script src="/url.js"></script>
+
+  <meta name="viewport" content="width=device-width, initial-scale=1.0"/>
+</head>
+
+
+
+<!--BANNER-->
+<div id="index-banner" class="parallax-container flow-text">
+  <div class="section no-pad-bot">
+    <div class="container  ">
+      <br><br>
+      <h1 class="header center white-text">Rukogiri</h1>
+      <h3 class="header center orange-text">An interactive Nokogiri parser</h3>
+
+      <div class="row center">
+        <p class="header   white-text ">
+          inspired by <a target="_blank" href="http://rubular.com/">Rubular</a> and <a target="_blank" href="https://scratch.mit.edu"> Scratch</a>
+        </p>
+      </div>
+      <!--<div class="row center">-->
+      <!--<a href="#main" id="download-button" class="btn-large waves-effect waves-light teal lighten-1">Get Started</a>-->
+      <!--</div>-->
+      <br><br>
+
+    </div>
+  </div>
+  <div class="parallax">
+    <img style="opacity:.3" src="https://ak8.picdn.net/shutterstock/videos/22262236/thumb/1.jpg?i10c=img.resize(height:160)" alt="" style="display: block; transform: translate3d(-50%, 232px, 0px);">
+  </div>
+</div>
+
+
+
+
+
+
+
+<nav>
+  <div class="nav-wrapper grey">
+
+    <div class="container col s12 flow-text">
+      <a href="#!" id="url-edit" class="breadcrumb">1 - Provide a source</a>
+      <a href="#!" class="breadcrumb">2 - Drag and drop methods</a>
+
+    </div>
+  </div>
+</nav>
+<!-- main content -->
+<div class="container ">
+
+
+
+
+
+  <!--FIRST SECTION-->
+  <!--<h5 class="center-align  white-text">1- Provide a source</h5>-->
+
+  <div class="  amber darken-2  black-text center-container" id="container1">
+    <div id="forms">
+
+      <!--TABS-->
+      <div class="row ">
+        <div class="col s12">
+          <ul class="tabs tabs-fixed-width tab1  grey darken-4 orange-text">
+            <li class="tab  "><a class="active cyan-text text-darken-2" href="#web-address">Web address</a></li>
+            <li class="tab  "><a class=" cyan-text text-darken-2 "href="#web-code">HTML code</a></li>
+
+          </ul>
+        </div>
+      </div>
+
+      <!--TABS-->
+
+      <div class="row ">
+
+
+        <div id="web-address" class="col s12">
+          <form   id="form-url" class=" row">
+            <div class="input-field col s8 offset-s1">
+              <div class="input-field inline">
+                <input name="url" id="url" type="text" class="validate" value="" data-autosize-input="{ space": 40 }">
+                <label for="url">URL</label>
+              </div>
+            </div>
+            <div class=" col s2 ">
+              <br>
+              <button class="btn waves-effect waves-light cyan darken-3 " type="submit" name="action">Submit
+              </button>
+
+            </div>
+          </form>
+
+
+
+        </div>
+      </div>
+      <div id="web-code" class="col s12">
+
+        <form  id="form-text" class=" row"">
+        <div class="input-field col s7 offset-s1">
+          <textarea  id="textarea-html" class="materialize-textarea"></textarea>
+          <label for="textarea-html">Enter the HTML code to parse</label>
+        </div>
+        <div class="input-field col s2">
+          <br>
+
+          <button class="btn waves-effect waves-light cyan darken-3 " type="submit" name="action">Submit
+          </button>
+        </div>
+        </form>
+
+      </div>
+    </div>
+
+
+
+    <!--<div id="check-url" class=" row">-->
+    <!--<div class="col s1">-->
+    <!--<br>-->
+    <!--<a class="btn btn-sm waves-effect waves-light " id="url-edit">edit</a>-->
+
+    <!--</div>-->
+    <!--<div class="col s11 ">-->
+    <!--<br>-->
+
+    <!--URL:-->
+    <!--<span id="url-display" class="  white-text"></span>-->
+    <!--<br>-->
+    <!--Title:-->
+    <!--<span id="url-title" class="  white-text"></span>-->
+    <!--<br>        <br>-->
+
+
+    <!--</div>-->
+
+
+    <!--</div>-->
+
+
+
+  </div>
+
+
+
+
+
+  <!--FIRST SECTION-->
+
+
+
+  <!--FIRST SECTION-->
+
+
+  <h5 class="white-text center-align">2 - Drag and drop methods</h5>
+
+  <div class=" cyan darken-3 white-text center-align" id="container2">
+
+
+
+
+    <form id="url-form">
+
+
+      <!--<div class="chip">-->
+      <!--Tag-->
+      <!--<input class="hidden-input">-->
+      <!--<i class="close material-icons">close</i>-->
+      <!--</div>-->
+
+      <!--TABS-->
+      <div class="row ">
+        <div class="col s12">
+          <ul class="tabs tabs-fixed-width  grey darken-4 ">
+
+            <%= @tabs %>
+
+          </ul>
+          <br>
+        </div>
+      </div>
+
+      <div  class="row ">
+        <%= @nokogiri %>
+
+
+        <div class="container"><hr></div>
+
+
+        <div class="input-field col s8 ">
+          <ul id="drag" class="connectedSortable ">
+
+
+            <li class="chip unsortable white">base</li>
+
+
+            <li class='chip' data-type='1' data-method='css'>
+              .css("<input type="text" id="autocomplete-input" class="autocomplete hidden-input cyan-text" autocomplete="false">")
+
+
+              <i class="close material-icons">close</i>
+
+            </li>
+
+
+          </ul>
+
+        </div>
+        <div class="input-field col s4">
+          <br>
+          <a class="btn waves-effect waves-light orange" name="action" id="check">Check
+          </a>
+        </div>
+      </div>
+    </form>
+  </div>
+</div>
+</div>
+
+
+
+
+
+<!--<div id="" class="parallax-container footer">-->
+<!--<div class="section no-pad-bot">-->
+<!--<div class="container">-->
+<!--<div class="row">-->
+<!--<div class="col l5 s12 amber darken-2 grey-text text-darken-4" id="div_id">-->
+<!--<h5>Available Ids</h5>-->
+<!--<ul class="ids">-->
+
+<!--</ul>-->
+<!--</div>-->
+<!--<div class="col l5 offset-l1 s12 cyan  darken-2 grey-text text-darken-4" id="div_classes">-->
+<!--<h5>Available Classes</h5>-->
+<!--<span class="classes">-->
+
+<!--</span>-->
+
+<!--</div>-->
+<!--</div>-->
+<!--</div>-->
+<!--<div class="parallax">-->
+<!--<img style="opacity:.7" src="https://ak8.picdn.net/shutterstock/videos/22262236/thumb/1.jpg?i10c=img.resize(height:160)" alt="Unsplashed background img 1" style="display: block; transform: translate3d(-50%, 232px, 0px);">-->
+<!--</div>-->
+<!--</div>-->
+<!--</div>-->
+
+<div id="modal1" class="modal bottom-sheet grey darken-4">
+  <div class="modal-content">
+    <h5 id="code_txt"  class="white-text"></h5>
+    <div id="show-error"><div id="error_message" class="black-text red"></div>
+      <div class="amber darken-2 black-text">Showing instead result for <span id="code_error" class=" text-darken-2"></span></div>
+    </div>
+    <pre id="result" class="col-md-6 white-text">
+    </pre>
+  </div>
+
+</div>
+</div>
+
+<div class="footer-copyright">
+  <div class=" white-text">
+    &nbsp; © 2017 Nicolas roitero
+    <a class="blue-text  right" href="#!">link</a>
+  </div>
+</div>
+
+</html>

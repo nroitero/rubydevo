@@ -1,0 +1,286 @@
+<script src="https://cdnjs.cloudflare.com/ajax/libs/jquery/3.2.1/jquery.js"></script>
+<script src="https://cdnjs.cloudflare.com/ajax/libs/jqueryui/1.12.1/jquery-ui.js"></script>
+
+<!doctype html>
+<html lang="en">
+<head>
+  <meta charset="utf-8"/>
+  <link rel="apple-touch-icon" sizes="76x76" href="assets/img/apple-icon.png">
+  <link rel="icon" type="image/png" sizes="96x96" href="assets/img/favicon.png">
+  <meta http-equiv="X-UA-Compatible" content="IE=edge,chrome=1"/>
+
+  <title></title>
+
+  <meta content='width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=0' name='viewport'/>
+  <meta name="viewport" content="width=device-width"/>
+
+  <!--<link href="bootstrap3/css/bootstrap.min.css" rel="stylesheet" />-->
+  <link href="https://bootswatch.com/darkly/bootstrap.min.css" rel="stylesheet"/>
+  <link href="/assets/css/gsdk.css" rel="stylesheet"/>
+  <link href="/assets/css/obsidian.css" rel="stylesheet"/>
+
+  <link href="/assets/css/demo.css" rel="stylesheet"/>
+
+  <!--     Fonts and icons     -->
+  <link href="http://maxcdn.bootstrapcdn.com/font-awesome/4.4.0/css/font-awesome.min.css" rel="stylesheet">
+  <link href='https://fonts.googleapis.com/css?family=Grand+Hotel|Open+Sans:400,300' rel='stylesheet' type='text/css'>
+  <link href="/assets/css/pe-icon-7-stroke.css" rel="stylesheet"/>
+  <style>
+     li {
+      margin: 4px;
+    }
+
+    .btn {
+      background: #333;
+      opacity: 1;
+    }
+.form{
+  list-style: none;
+}
+    .hidden-input {
+      font: inherit;
+
+      width: 100px;
+      background: #333;
+      color: #c90;
+      border: none;
+      text-align: center;
+    }
+
+
+      #trash{
+        line-height: 90px;
+        border: dashed darkred;
+height: 90px;
+        text-align: center;
+        vertical-align: middle;
+        color: #ccc;
+        background: #222;
+        font-weight: bold;
+      }
+     .input-group-addon{
+       background-color: transparent;
+     }
+  </style>
+  <div class="container">
+    <h2>An interactive Nokogiri parser</h2>
+    <span style="color: #777">inspired by <a href="http://rubular.com/">Rubular</a> and <a href="https://scratch.mit.edu"> Scratch</a></span>
+    <br>
+    <br>
+
+    <div class="well">
+      Available methods
+      <hr>
+
+
+
+
+
+
+      <ul id="method" class="connectedSortable">
+
+        <li id="css" class="btn btn-info btn-sm">
+          <div class="form-inline">
+            .css("<input class="hidden-input " placeholder="value" required>")
+          </div>
+        </li>
+
+        <li id="map_text" class="btn btn-info btn-sm">
+          .map{&:text}
+        </li>
+        <li id="array_index" class="btn btn-info btn-sm">
+          <div class="form-inline">
+            [<input class="hidden-input " placeholder="value" required>"]
+          </div>
+        </li>
+        <%= @li %>
+        <li id="format_numbers" class="btn btn-info btn-sm">.map{|e| e.rjust(2, '0')}.to_s.delete('"').strip</li>
+
+      </ul>
+    </div>
+    <div class=" col-md-6">
+      <div class="well">
+        <ul id="date" class="connectedSortable ">
+          <!--<li class="form unsortable ">-->
+            <!--<span class="fa fa-remove form-control-feedback"></span>-->
+            <!--<i class="glyphicon glyphicon-link"></i>-->
+
+            <!--<input id="usrl" placeholder="url" class="form-control input-sm" value="http://mangafox.me/">-->
+
+          <!--</li>-->
+          <li class="form unsortable input-group">
+            <span class="input-group-addon"><i class="glyphicon glyphicon-link"></i></span>
+            <input id="url" type="text" class="form-control" name="email" placeholder="Url">
+          </li>
+
+          <br>
+
+          <li class="btn btn-sm unsortable">base</li>
+          <li id="css" class="btn btn-info btn-sm">
+            <div class="form-inline">
+              .css("<input class="hidden-input " placeholder="value" required>")
+            </div>
+          </li>
+        </ul>
+
+
+
+        <hr>
+        <div class="row">
+
+        <div id="trash" class="col-md-12">
+
+        <span >
+          <i class="glyphicon glyphicon-trash "></i>
+          Trash
+        </span>
+        </div>
+        </div>
+      </div>
+
+    </div>
+    <pre id="result" class="col-md-6">
+    </pre>
+
+  </div>
+  <script src="/assets/js/rainbow.min.js"></script>
+  <script src="/bootstrap3/js/bootstrap.js"></script>
+
+  <script type='text/javascript'>
+
+      $("#method").sortable({
+          connectWith: ".connectedSortable",
+
+          helper: function (e, li) {
+              this.copyHelper = li.clone().insertAfter(li);
+
+              $(this).data('copied', false);
+
+              return li.clone();
+          },
+          stop: function () {
+
+              var copied = $(this).data('copied');
+
+              if (!copied) {
+                  this.copyHelper.remove();
+              }
+
+              this.copyHelper = null;
+          }, beforeStop: function (event, ui) {
+
+              if (ui.item.parent().attr('id') === "method") {
+              }
+          }
+
+      });
+
+      $("#date").sortable({
+          items: "li:not(.unsortable)",
+          receive: function (e, ui) {
+              ui.sender.data('copied', true);
+              check($(this))
+          },
+          stop: function () {
+              check($(this))
+
+          },
+              deactivate: function (e, ui) {
+              ui.item.css({"opacity": 1})
+          }
+      });
+      $('#trash').droppable({
+          connectWith: ".connectedSortable2",
+          tolerance: "pointer",
+          over: function (event, ui) {
+              if (!(ui.helper.parent()[0].id === "method")) {
+                  ui.helper.css({"opacity": .5})
+
+              } else {
+                  return false
+              }
+
+          },
+
+          drop: function (event, ui) {
+              if ($(ui.draggable.parent())[0].id !== "method") {
+                  ui.draggable.remove();
+              }
+
+          }
+      });
+
+
+
+
+
+      function check(parent) {
+
+          var arr = []
+          parent.find("li").each(function (index, element) {
+              if (index > 1) {
+                  arr.push({index: index, type: this.id, input: $(this).find("input").val()})
+              }
+          })
+
+          console.log()
+
+          var url = parent.find("#url").val()
+          console.log(url)
+
+          var div_id = parent[0].id
+          console.log({"url": url, "commands": arr})
+
+          $.ajax({
+              type: 'POST',
+              async: false,
+
+              url: "/check/nokogiri",
+              data: {"url": url, "commands": arr},
+              dataType: 'json',
+              success: function (data) {
+                  result = data;
+              }
+          });
+          console.log(result)
+          $("#" + div_id + " li").each(function (index, element) {
+              if (index >= 1) {
+                  $(this).removeClass("btn-danger").addClass("btn-info")
+              }
+          })
+          if (result.message) {
+              console.log(result)
+
+              $("#" + div_id + " li").each(function (index, element) {
+
+                  if (index >= parseInt(result.id)) {
+                      $(this).removeClass("btn-info").addClass("btn-danger")
+                  }
+              })
+
+              $("#result").html("Error for : " + result.nokogiri + "<br><br><code id=\"error\"></code>")
+              $("#error").html(result.message).addClass("text-danger").css({"font-weight":"bold"})
+              $("#error")
+          } else {
+
+              $("#result").html("Result for : " + result.nokogiri + "<br><br><code data-language=\"html\" id=\"datecx\"></code>")
+              $('.preloader').remove()
+              $("#datecx").html(result.code)
+              Rainbow.color();
+          }
+      }
+
+
+
+
+
+      $( "#date" ).change(function() {
+check($(this))
+      });
+
+      $(".check").click(function () {
+
+      });
+
+
+  </script>

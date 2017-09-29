@@ -1,0 +1,12 @@
+source 'https://rubygems.org'
+ruby '2.4.1'
+gem 'curb'
+
+gem 'metainspector'
+# gem 'net-ssh'
+gem 'nokogiri'
+gem 'sinatra'
+gem 'sinatra-contrib'
+gem 'rack-jquery'
+gem 'thin'
+gem 'awesome_print'

@@ -1,0 +1,61 @@
+<style>
+.chip{
+  background: #333;
+  color: #ccc;
+border-radius: 0;
+  border:1px #100 solid;
+}
+
+</style>
+<ul>
+  <%= @nokogiri %>
+</ul>
+
+
+
+<div class="container">
+  <div class="chip z-depth-4" >
+   .css("
+    <a class="trigger" id="unique"  href="#"> select</a>
+    ")
+    <i class="material-icons close">close</i>
+  </div>
+  <div class="chip z-depth-4" >
+    .css("
+    <a class="trigger" id="unique2" href="#modal"> select</a>
+
+    ")
+    <i class="material-icons close">close</i>
+  </div>
+<div id="modal" class="modal ">
+  <div class="modal-content">
+    <h4>Modal Header</h4>
+    <a href="#" class="elements">css</a>
+    <a href="#" class="elements">plop</a>
+  </div>
+  <div class="modal-footer">
+    <a href="#!" class="modal-action modal-close waves-effect waves-green btn-flat">Cancel</a>
+  </div>
+</div>
+</div>
+
+<script>
+  
+  
+  $(".trigger").click(function () {
+      var id=$(this)[0].id
+      $('#modal').data("id",id)
+      $('#modal').modal();
+      $('#modal').modal('open');
+
+  })
+
+
+  $(".elements").click(function () {
+id=$(this).parent().parent().data("id")
+      $("#"+id).html($(this).text())
+      $('#modal').modal('close');
+
+  })
+
+</script>
